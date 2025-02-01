@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBTI Personality Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: center;
+      color: #333;
+    }
+    .description {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>MBTI Personality Test</h1>
+  <form id="personalityTest">
+    <!-- Question 1: Extraversion (E) vs. Introversion (I) -->
+    <div class="question">
+      <label>I enjoy socializing with large groups of people.</label><br>
+      <input type="radio" name="q1" value="1"> Strongly Disagree
+      <input type="radio" name="q1" value="2"> Disagree
+      <input type="radio" name="q1" value="3"> Neutral
+      <input type="radio" name="q1" value="4"> Agree
+      <input type="radio" name="q1" value="5"> Strongly Agree
+    </div>
+
+    <!-- Question 2: Sensing (S) vs. Intuition (N) -->
+    <div class="question">
+      <label>I focus more on concrete facts than abstract ideas.</label><br>
+      <input type="radio" name="q2" value="1"> Strongly Disagree
+      <input type="radio" name="q2" value="2"> Disagree
+      <input type="radio" name="q2" value="3"> Neutral
+      <input type="radio" name="q2" value="4"> Agree
+      <input type="radio" name="q2" value="5"> Strongly Agree
+    </div>
+
+    <!-- Question 3: Thinking (T) vs. Feeling (F) -->
+    <div class="question">
+      <label>I make decisions based on logic rather than emotions.</label><br>
+      <input type="radio" name="q3" value="1"> Strongly Disagree
+      <input type="radio" name="q3" value="2"> Disagree
+      <input type="radio" name="q3" value="3"> Neutral
+      <input type="radio" name="q3" value="4"> Agree
+      <input type="radio" name="q3" value="5"> Strongly Agree
+    </div>
+
+    <!-- Question 4: Judging (J) vs. Perceiving (P) -->
+    <div class="question">
+      <label>I prefer having a structured plan over being spontaneous.</label><br>
+      <input type="radio" name="q4" value="1"> Strongly Disagree
+      <input type="radio" name="q4" value="2"> Disagree
+      <input type="radio" name="q4" value="3"> Neutral
+      <input type="radio" name="q4" value="4"> Agree
+      <input type="radio" name="q4" value="5"> Strongly Agree
+    </div>
+
+    <button type="button" onclick="calculateResult()">Submit</button>
+  </form>
+  <div class="result" id="result"></div>
+  <div class="description" id="description"></div>
+
+  <script>
+    function calculateResult() {
+      // Collect answers
+      const q1 = parseInt(document.querySelector('input[name="q1"]:checked')?.value || 0); // E/I
+      const q2 = parseInt(document.querySelector('input[name="q2"]:checked')?.value || 0); // S/N
+      const q3 = parseInt(document.querySelector('input[name="q3"]:checked')?.value || 0); // T/F
+      const q4 = parseInt(document.querySelector('input[name="q4"]:checked')?.value || 0); // J/P
+
+      // Determine personality type
+      let type = "";
+
+      // Extraversion (E) vs. Introversion (I)
+      if (q1 >= 4) {
+        type += "E"; // Extraverted
+      } else {
+        type += "I"; // Introverted
+      }
+
+      // Sensing (S) vs. Intuition (N)
+      if (q2 >= 4) {
+        type += "S"; // Sensing
+      } else {
+        type += "N"; // Intuitive
+      }
+
+      // Thinking (T) vs. Feeling (F)
+      if (q3 >= 4) {
+        type += "T"; // Thinking
+      } else {
+        type += "F"; // Feeling
+      }
+
+      // Judging (J) vs. Perceiving (P)
+      if (q4 >= 4) {
+        type += "J"; // Judging
+      } else {
+        type += "P"; // Perceiving
+      }
+
+      // Display result
+      document.getElementById("result").innerText = `Your personality type: ${type}`;
+
+      // Add description for the personality type
+      const descriptions = {
+        "ISTJ": "The Logistician – Responsible, organized, and detail-oriented.",
+        "ISFJ": "The Defender – Caring, loyal, and hardworking.",
+        "INFJ": "The Advocate – Insightful, compassionate, and idealistic.",
+        "INTJ": "The Architect – Strategic, visionary, and independent.",
+        "ISTP": "The Virtuoso – Practical, adaptable, and hands-on.",
+        "ISFP": "The Adventurer – Artistic, gentle, and open-minded.",
+        "INFP": "The Mediator – Poetic, empathetic, and creative.",
+        "INTP": "The Thinker – Analytical, curious, and innovative.",
+        "ESTP": "The Entrepreneur – Bold, energetic, and action-oriented.",
+        "ESFP": "The Entertainer – Outgoing, playful, and spontaneous.",
+        "ENFP": "The Campaigner – Enthusiastic, spontaneous, and imaginative.",
+        "ENTP": "The Debater – Energetic, inventive, and argumentative.",
+        "ESTJ": "The Executive – Efficient, traditional, and dependable.",
+        "ESFJ": "The Consul – Social, supportive, and cooperative.",
+        "ENFJ": "The Protagonist – Charismatic, inspiring, and altruistic.",
+        "ENTJ": "The Commander – Natural leaders, decisive, and goal-oriented."
+      };
+
+      document.getElementById("description").innerText = descriptions[type] || "No description available.";
+    }
+  </script>
+</body>
+</html>
